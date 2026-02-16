@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+
 .hytaleIcon {
     width: 30vw;
     position: absolute;
@@ -7,6 +10,7 @@
 body {
     margin: 0;
     padding: 0;
+    background-color: #C0ECFF;
 }
 
 .posts {
@@ -30,7 +34,8 @@ body {
     display: flex;
     justify-content: space-between;
     padding: 5px;
-    width: 15%
+    width: 15%;
+    min-width: 100px;
 }
 
 .LikeIconClass {
@@ -42,100 +47,12 @@ body {
     width: 16px;
     height: 16px;
 }
-
-/* Лайк-кнопка */
-.like {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    cursor: pointer;
-    user-select: none;
-    margin: 0;                 /* чтобы не было лишних отступов у <p> */
-    font-size: 14px;
+* {
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
 }
 
-.like-icon-wrap {
-    position: relative;
-    width: 20px;
-    height: 20px;
-    display: inline-block;
+.PostText {
+    margin-left: 45px;
 }
-
-.like-icon-wrap .LikeIconClass {
-    width: 100%;
-    height: 100%;
-    display: block;
-    transition: transform 0.25s ease;
-}
-
-.like-count {
-    margin-left: 2px;
-}
-
-/* Контейнер салюта */
-.like-burst {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 0;
-    height: 0;
-    pointer-events: none;
-}
-
-.like-burst span {
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    opacity: 0;
-    transform-origin: center;
-}
-
-/* Цвета и направления «частиц» салюта */
-.like-burst span:nth-child(1) { --angle:   0deg; background: #ff4b4b; }
-.like-burst span:nth-child(2) { --angle:  45deg; background: #ffb300; }
-.like-burst span:nth-child(3) { --angle:  90deg; background: #ffeb3b; }
-.like-burst span:nth-child(4) { --angle: 135deg; background: #00e676; }
-.like-burst span:nth-child(5) { --angle: 180deg; background: #00b0ff; }
-.like-burst span:nth-child(6) { --angle: 225deg; background: #2979ff; }
-.like-burst span:nth-child(7) { --angle: 270deg; background: #651fff; }
-.like-burst span:nth-child(8) { --angle: 315deg; background: #f50057; }
-
-/* Состояние лайкнуто */
-.like.liked .like-icon-wrap .LikeIconClass {
-    filter: grayscale(1) brightness(0) drop-shadow(0 0 4px rgba(0, 0, 0, 0.6));
-}
-
-/* Запуск анимации */
-.like.animate .like-icon-wrap .LikeIconClass {
-    animation: like-pop 300ms ease-out;
-}
-
-.like.animate .like-burst span {
-    animation: like-burst 600ms ease-out forwards;
-}
-
-/* Увеличение иконки при лайке */
-@keyframes like-pop {
-    0%   { transform: scale(1); }
-    40%  { transform: scale(1.5); }
-    100% { transform: scale(1); }
-}
-
-/* Разлёт частиц салюта */
-@keyframes like-burst {
-    0% {
-        opacity: 1;
-        transform: rotate(var(--angle)) translateY(0) scale(0.4);
-    }
-    80% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-        transform: rotate(var(--angle)) translateY(-26px) scale(1);
-    }
-}
-

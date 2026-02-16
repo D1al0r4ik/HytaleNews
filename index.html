@@ -6,38 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HytaleNews</title>
 </head>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const likes = document.querySelectorAll('.like');
-
-    likes.forEach(function (likeEl) {
-        likeEl.addEventListener('click', function () {
-            const countEl = likeEl.querySelector('.like-count');
-            let count = parseInt(countEl.textContent, 10) || 0;
-
-            // Тоггл лайка (как на YouTube: салют только при установке лайка)
-            if (likeEl.classList.contains('liked')) {
-                likeEl.classList.remove('liked');
-                countEl.textContent = Math.max(0, count - 1);
-            } else {
-                likeEl.classList.add('liked');
-                countEl.textContent = count + 1;
-
-                // Перезапуск анимации салюта
-                likeEl.classList.remove('animate');
-                // форс‑reflow, чтобы CSS-анимация перезапустилась
-                void likeEl.offsetWidth;
-                likeEl.classList.add('animate');
-            }
-        });
-    });
-});
-</script>
-
 
 <body>
     <img class = "hytaleIcon" src = "src/logo.png"><img>
-    <h1>Посты:</h1>
+    <h1 class = "PostText">Посты:</h1>
     <div class = "posts">
         <div class = "post">
             <p class = "TextOfNews">Разработчики подтвердили планы по обновлениям Hytale
@@ -51,14 +23,9 @@ document.addEventListener('DOMContentLoaded', function () {
     <p class="like">
         <span class="like-icon-wrap">
             <img class="LikeIconClass" src="src/LikeIcon.png" alt="like">
-            <span class="like-burst">
-                <span></span><span></span><span></span><span></span>
-                <span></span><span></span><span></span><span></span>
-            </span>
-        </span>
         <span class="like-count">123</span>
+        </span>
     </p>
-
     <p class="dislike">
         <img class="DislikeIconClass" src="src/DislikeIcon.png" alt="dislike">10
     </p>
