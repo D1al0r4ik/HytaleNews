@@ -5,8 +5,6 @@ let posts = [{
     like: 12312,
     date: "12.13.2090"
 }]
-let Like = posts.like
-let Dislike = posts.dislike
 
 
 function render() {
@@ -18,8 +16,8 @@ function render() {
             <div class = "lower">
         <p class = "date">${post.date}</p>
         <div class = "LikeContainer">
-        <p class = "like"><img class="LikeIconClass" src="src/LikeIcon.png" alt="like">${post.like}</p>
-        <p class = "dislike"><img class="LikeIconClass" src="src/LikeIcon.png" alt="like">${post.dislike}</p>
+        <p class = "like"><img class="LikeIconClass" src="src/LikeIcon.png" alt="like">${renderLike(post.like)}</p>
+        <p class = "dislike"><img class="LikeIconClass" src="src/LikeIcon.png" alt="like">${renderLike(post.dislike)}</p>
         </div>
             </div>
             <style>
@@ -31,24 +29,22 @@ function render() {
 })
 }
 
-function renderLike() {
+function renderLike(Like) {
     if (Like >= 1000) {
-        Like.innerHTML = (Like/1000) + "К"
+        return (Like/1000) + "К"
 }  else {
-    Like.innerHTML = Like
+    return Like
 }
 }
 
-function renderDisLike() {
-    if (Dislike >= 1000) {
-        Dislike.innerHTML = (Dislike/1000) + "К"
-}  else {
-    Dislike.innerHTML = Dislike
-}
+function loader() {
+    const data = localStorage.getItem("NewsData")
+
+    if(data) {
+        posts = JSON.parse(data);
+    }
 }
 
 
+loader()
 render()
-renderLike()
-renderDisLike()
-
