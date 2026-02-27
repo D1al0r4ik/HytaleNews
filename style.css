@@ -18,10 +18,11 @@ body {
     height: 100%;
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
+    gap: 15px; 
     margin-left: 50px;
     background-color: #BDFF9E;
-    padding: 10px;
+    padding: 20px;
+    margin-top: 20px;
     border-radius: 10px;
 }
 
@@ -56,3 +57,12 @@ body {
 .PostText {
     margin-left: 45px;
 }
+
+.divPost {
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+}
+
