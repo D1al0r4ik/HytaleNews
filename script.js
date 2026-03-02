@@ -16,13 +16,14 @@ function render() {
             <div class = "lower">
         <p class = "date">${post.date}</p>
         <div class = "LikeContainer">
-        <p class = "like"><img class="LikeIconClass" src="src/LikeIcon.png" alt="like">${renderLike(post.like)}</p>
-        <p class = "dislike"><img class="LikeIconClass" src="src/LikeIcon.png" alt="like">${renderLike(post.dislike)}</p>
+        <p class = "like" data-index = ${index}><img class="LikeIconClass" src="src/LikeIcon.png" alt="like">${renderLike(post.like)}</p>
+        <p class = "dislike" data-index = ${index}><img class="LikeIconClass" src="src/LikeIcon.png" alt="like">${renderLike(post.dislike)}</p>
         </div>
             </div>
             <style>
             margin-top: 20px;
             </style>
+
         `
 
         postsContainer.appendChild(divPost)
@@ -44,6 +45,31 @@ function loader() {
         posts = JSON.parse(data);
     }
 }
+
+function SaveLocal() {
+    localStorage.setItem("NewsData", JSON.stringify(notes))
+    render()
+}
+
+
+postsContainer.addEventListener("click", (event) =>{
+    let likeBtn = event.target.closeat(".like")
+    let disLikeBtn = event.target.closeat(".dislike")
+
+
+    if(likeBtn) {
+        let = likeBtn.dataset.index
+        posts[i].like++
+        SaveLocal()
+        render()
+    }
+    if(disLikeBtn) {
+        let = disLikeBtn.dataset.index
+        posts[i].dislike++
+        SaveLocal()
+        render()
+    }
+})
 
 
 loader()

@@ -1,5 +1,5 @@
 
-let notes = []
+// let notes = []
 let addButton = document.querySelector(".AddPostButton")
 let inputText = document.querySelector(".TextPost")
 
@@ -24,12 +24,8 @@ function loader() {
     const data = localStorage.getItem("NewsData")
 
     if(data) {
-        posts = JSON.parse(data);
+        notes = JSON.parse(data);
     }
 }
-
-
-
-
 addButton.addEventListener("click", saveElem)
 loader()
