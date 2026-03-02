@@ -5,7 +5,7 @@ let posts = [{
     like: 12312,
     date: "12.13.2090"
 }]
-
+let LikeContainer = document.querySelector(".LikeContainer")
 
 function render() {
     posts.forEach((post, index) => {
@@ -47,24 +47,23 @@ function loader() {
 }
 
 function SaveLocal() {
-    localStorage.setItem("NewsData", JSON.stringify(notes))
-    render()
+    localStorage.setItem("NewsData", JSON.stringify(posts))
 }
 
 
-postsContainer.addEventListener("click", (event) =>{
-    let likeBtn = event.target.closeat(".like")
-    let disLikeBtn = event.target.closeat(".dislike")
+LikeContainer.addEventListener("click", (event) =>{
+    let likeBtn = event.target.closest(".like")
+    let disLikeBtn = event.target.closest(".dislike")
 
 
     if(likeBtn) {
-        let = likeBtn.dataset.index
+        let i = likeBtn.dataset.index
         posts[i].like++
         SaveLocal()
         render()
     }
     if(disLikeBtn) {
-        let = disLikeBtn.dataset.index
+        let i = disLikeBtn.dataset.index
         posts[i].dislike++
         SaveLocal()
         render()

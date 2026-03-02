@@ -1,5 +1,6 @@
 
-// let notes = []
+// let posts = []
+
 let addButton = document.querySelector(".AddPostButton")
 let inputText = document.querySelector(".TextPost")
 
@@ -7,7 +8,7 @@ function saveElem(){
     let now = new Date()
     let dataString = `${now.getDate()}.${now.getMonth()+1}.${now.getFullYear()}`
 
-    notes.push({
+    posts.push({
         text: inputText.value,
         dislike: 0,
         like: 0, 
@@ -17,14 +18,14 @@ function saveElem(){
 }
 
 function SaveLocal() {
-    localStorage.setItem("NewsData", JSON.stringify(notes))
+    localStorage.setItem("NewsData", JSON.stringify(posts))
 }
 
 function loader() {
     const data = localStorage.getItem("NewsData")
 
     if(data) {
-        notes = JSON.parse(data);
+        posts = JSON.parse(data);
     }
 }
 addButton.addEventListener("click", saveElem)
