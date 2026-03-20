@@ -83,6 +83,7 @@ postsContainer.addEventListener("click", (event) =>{
             LikeSaver.push(i)
             posts[i].like++
             SaveLocal()
+            AnimationOfLike(likeBtn)
             render()
         }
     }
@@ -93,10 +94,33 @@ postsContainer.addEventListener("click", (event) =>{
             DislikeSaver.push(i)
             posts[i].dislike++
             SaveLocal()
+            AnimationOfLike(disLikeBtn)
             render()
     }
 }
 })
+
+function AnimationOfLike(index) {
+    let bubbles = document.createElement("div");
+    bubbles.className = ("bubblesAnimation")
+    const rect = index.getBoundingClientRect();
+    bubbles.style.position = "fixed";
+    bubbles.style.left = (rect.left - 13) + "px";
+    bubbles.style.top = (rect.top - 13) + "px";
+    document.body.appendChild(bubbles);
+    bubbles.animate(
+        [ 
+            { transform: "scale(0.5)" },
+            { transform: "scale(1)" },
+            { transform: "scale(1.5)" }  
+        ], 
+        { 
+            duration: 500,
+            easing: "ease-out" 
+        }
+    ).onfinish = () => bubbles.remove();  
+
+}
 
 
 loader()
