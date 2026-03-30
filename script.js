@@ -1,13 +1,6 @@
 let postsContainer = document.querySelector(".posts")
-let LikeSaver = []
-let DislikeSaver = []
-let posts = [{
-    text: "dasdasd",
-    dislike: 123,
-    like: 12312,
-    date: "12.13.2090"
-}]
-let LikeContainer = document.querySelector(".LikeContainer")
+let publicApi = "cf60887d111d1fbf7717e778cda01bac"
+let posts = []
 
 function render() {
     postsContainer.innerHTML = ""
@@ -19,109 +12,40 @@ function render() {
         <div class = "delete" data-index = ${index}>❌</div>
             <div class = "lower">
         <p class = "date">${post.date}</p>
-        <div class = "LikeContainer">
-        <p class = "like" data-index = ${index}><img class="LikeIconClass" src="src/LikeIcon.png" alt="like">${renderLike(post.like)}</p>
-        <p class = "dislike" data-index = ${index}><img class="LikeIconClass" src="src/LikeIcon.png" alt="like">${renderLike(post.dislike)}</p>
-        </div>
-            </div>
-
         `
 
         postsContainer.appendChild(divPost)
 })
 }
 
-function renderLike(Like) {
-    if (Like >= 1000) {
-        return (Like/1000) + "К"
-}  else {
-    return Like
-}
-}
 
-function loader() {
-    const data = localStorage.getItem("NewsData")
-    const likeData = localStorage.getItem("likeData")
-    const DislikeData = localStorage.getItem("DislikeData")
-    if(data) {
-        posts = JSON.parse(data);
-    }
 
-    if(likeData) {
-        LikeSaver = JSON.parse(likeData)
-    }
-
-    if(DislikeData) {
-        DislikeSaver = JSON.parse(DislikeData)
-    }
-}
-
-function SaveLocal() {
-    localStorage.setItem("NewsData", JSON.stringify(posts))
-    localStorage.setItem("likeData", JSON.stringify(LikeSaver))
-    localStorage.setItem("DislikeData", JSON.stringify(DislikeSaver))
+async function loader() {
+    const result = await fetch(`https://jsonbox.ru/api.php?action=get&api_key=${publicApi}`);
+    const userData = await result.json();
+    posts = userData.data.postsData
+    render()
 }
 
 
-postsContainer.addEventListener("click", (event) =>{
-    let likeBtn = event.target.closest(".like")
-    let disLikeBtn = event.target.closest(".dislike")
+postsContainer.addEventListener("click", async (event) =>{
     let deleteBtn = event.target.closest(".delete")
 
     if(deleteBtn) {
         let i = deleteBtn.dataset.index
         posts.splice(i, 1)
-        LikeSaver.splice(i, 1)
-        DislikeSaver.splice(i, 1)
-        SaveLocal()
+        await fetch('https://jsonbox.ru/api.php?action=store', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                api_key: publicApi,
+                data: {postsData: posts}
+            })
+        });
         render()
     }
 
-    if(likeBtn) {
-        let i = likeBtn.dataset.index
-        if(!LikeSaver.includes(i)){
-            LikeSaver.push(i)
-            posts[i].like++
-            SaveLocal()
-            AnimationOfLike(likeBtn)
-            render()
-        }
-    }
-
-    if(disLikeBtn) {
-        let i = disLikeBtn.dataset.index
-        if(!DislikeSaver.includes(i)){
-            DislikeSaver.push(i)
-            posts[i].dislike++
-            SaveLocal()
-            AnimationOfLike(disLikeBtn)
-            render()
-    }
-}
 })
-
-function AnimationOfLike(index) {
-    let bubbles = document.createElement("div");
-    bubbles.className = ("bubblesAnimation")
-    const rect = index.getBoundingClientRect();
-    bubbles.style.position = "fixed";
-    bubbles.style.left = (rect.left - 13) + "px";
-    bubbles.style.top = (rect.top - 13) + "px";
-    document.body.appendChild(bubbles);
-    bubbles.animate(
-        [ 
-            { transform: "scale(0.5)" },
-            { transform: "scale(1)" },
-            { transform: "scale(1.5)" }  
-        ], 
-        { 
-            duration: 500,
-            easing: "ease-out" 
-        }
-    ).onfinish = () => bubbles.remove();  
-
-}
 
 
 loader()
-render()
